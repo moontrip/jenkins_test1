@@ -1,0 +1,50 @@
+# DKDK for solr config
+
+version: '3'
+# volumes are named here.
+volumes:
+    volume_solrdata_v1:         # Store solr cores' data and configs
+    # volume_solrindexfiles_v1:   # index files to post
+    # volume_predata_v1:          # check if this work
+
+services:
+    solr:
+        build:
+            context: ./8.2
+            dockerfile: Dockerfile_dk1
+            # args:
+            #     - WEB_SERVER_NAME
+        image: solr:8.2
+        # networks:
+        #     - backend
+        #     - frontend
+        volumes:
+            - volume_solrdata_v1:/var/solr/
+            # - volume_solrindexfiles_v1:/opt/docker-solr/index-data/
+            # - volume_predata_v1:/var/solr/data/
+            # - /home/dkwon/Downloads/solr_cores/collection1:/var/solr/data/collection1   # indivisual core definition is required...
+            # - /home/dkwon/Downloads/solr_cores/collection1/conf:/var/solr/data/collection1/conf   # indivisual core definition is required...
+        ports: # IMPORTANT: Make sure to use 127.0.0.1 to keep it local. Otherwise, this will be broadcast to the web.
+            # - "127.0.0.1:8080:8080"
+            # DKDK by setting local, it seems that Dockerfile_dk1 can't access to outside network
+            - "9001:8080"
+        # depends_on:
+
+        # environment: # NOTE: Without
+
+        # links:
+
+# # DKDK from docker-solr
+# version: '3'
+# services:
+#   solr:
+#     image: solr:8
+#     ports:
+#      - "8983:8983"
+#     volumes:
+#       - data:/var/solr
+#     command:
+#       - solr-precreate
+#       - gettingstarted
+# volumes:
+#   data:

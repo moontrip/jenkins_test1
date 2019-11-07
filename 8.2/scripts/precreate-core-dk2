@@ -1,0 +1,7 @@
+#!/bin/bash
+#
+# Create a core on disk
+# arguments are: corename configdir
+
+set -e
+
